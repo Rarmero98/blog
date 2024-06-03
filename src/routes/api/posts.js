@@ -11,7 +11,7 @@ const {
 
 router.get("/", getAllPosts);
 router.get("/:post_id", getPostById);
-router.get("/:autor_nombre", getPostsByAuthor);
+router.get("/autor/:autor_nombre", getPostsByAuthor);
 router.post("/", createPost);
 router.put("/:post_id", updatePost);
 router.delete("/:post_id", deletePost);

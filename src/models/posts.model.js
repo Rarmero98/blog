@@ -3,13 +3,18 @@ const selectAll = () => {
   return db.query("SELECT * FROM posts");
 };
 
+// Función que cumple el requisito de recuperar todos los datos del autor de una publicación
 const selectById = (postId) => {
-  return db.query("select * from posts where id = ?", [postId]);
+  return db.query(
+    "SELECT pos.titulo `Título de la publicación`, pos.descripcion `Descripción`, pos.fecha_creacion `Fecha de publicación`, pos.categoria `Categoría`, aut.nombre `Nombre del autor`, aut.email `Correo del autor`, aut.imagen `Foto de perfil` FROM posts pos INNER JOIN autores aut ON pos.autores_id = aut.id WHERE pos.id = ?",
+    [postId]
+  );
 };
 
+// Función que cumple el requisito de recuperar los diferentes posts escritos por un autor
 const selectPostsByAuthor = (autoresNombre) => {
   return db.query(
-    "SELECT posts.titulo, posts.descripcion, posts.fecha_creacion, posts.categoria FROM posts INNER JOIN autores ON posts.id = autores_id WHERE autores.nombre = ?",
+    "SELECT pos.titulo `Título de la publicación`, pos.descripcion `Descripción`, pos.fecha_creacion `Fecha de publicación`, pos.categoria `Categoría` FROM posts pos INNER JOIN autores aut ON pos.autores_id = aut.id WHERE aut.nombre = ?",
     [autoresNombre]
   );
 };

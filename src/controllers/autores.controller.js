@@ -22,9 +22,14 @@ const getAutorById = async (req, res, next) => {
   }
 };
 
-const createAutor = async (req, res) => {
-  const [response] = await autores.insert(req.body);
-  res.json(response);
+const createAutor = async (req, res, next) => {
+  try {
+    const [response] = await autores.insert(req.body);
+    const [[autor]] = await autores.selectById(response.insertId);
+    res.json(autor);
+  } catch (err) {
+    next(err);
+  }
 };
 
 const updateAutor = (req, res) => {

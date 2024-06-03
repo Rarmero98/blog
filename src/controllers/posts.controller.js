@@ -28,7 +28,7 @@ const getPostsByAuthor = async (req, res, next) => {
     if (response.length === 0) {
       return res.status(404).json({ error: "Autor no encontrado" });
     }
-    res.json(response[0]);
+    res.json(response);
   } catch (err) {
     next(err);
   }
@@ -36,9 +36,9 @@ const getPostsByAuthor = async (req, res, next) => {
 
 const createPost = async (req, res, next) => {
   try {
-    const response = await posts.insert(req.body);
-
-    res.json({ message: "Publicación creada" });
+    const [response] = await posts.insert(req.body);
+    const [[post]] = await posts.selectById(response.insertId);
+    res.json(post);
   } catch (err) {
     next(err);
   }
