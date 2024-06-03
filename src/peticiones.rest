@@ -1,0 +1,44 @@
+@PORT = 3000
+
+@HOST = http://localhost:{{PORT}}
+
+### Peticiones a los autores
+GET {{HOST}}/api/autores
+### getAutorById
+GET {{HOST}}/api/autores/1
+###
+POST {{HOST}}/api/autores
+Content-Type: application/json
+
+{
+    "nombre": "Sergio Moya Sánchez",
+    "email": "sms@gmail.com",
+    "imagen": "https://placehold.co/300x300"
+
+}
+###
+PUT {{HOST}}/api/autores
+###
+DELETE {{HOST}}/api/autores
+
+### Peticiones a las publicaciones
+GET {{HOST}}/api/posts
+### getPostById
+GET {{HOST}}/api/posts/1
+### getPostsByAuthor
+GET {{HOST}}/api/posts/autor/Eustaquio Serrano López
+###
+POST {{HOST}}/api/posts
+Content-Type: application/json
+
+{
+    "titulo": "Izquierda con Excel",
+    "descripcion": "La gestión de Sheinbaum como responsable de la Ciudad de México, marcada por la laboriosidad.",
+    "fecha_creacion": "2024-06-03",
+    "categoria": "Opinión",
+    "autores_id": "3"
+}
+###
+PUT {{HOST}}/api/posts/13213
+###
+DELETE {{HOST}}/api/posts
