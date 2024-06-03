@@ -9,7 +9,7 @@ const {
 
 router.get("/", getAllAutores);
 router.post("/", createAutor);
-router.put("/", updateAutor);
-router.delete("/", deleteAutor);
+router.put("/:autor_id", updateAutor);
+router.delete("/:autor_id", deleteAutor);
 
 module.exports = router;

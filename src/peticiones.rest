@@ -15,7 +15,15 @@ DELETE {{HOST}}/api/autores
 GET {{HOST}}/api/posts
 ###
 POST {{HOST}}/api/posts
+Content-Type: application/json
+
+{
+    "titulo": "La verdad sobre el caso Savolta",
+    "descripcion": "Artículo sobre el libro de Eduardo Mendoza",
+    "fecha_creacion": "2024-06/01",
+    "categoria": "Reseñas"
+}
 ###
-PUT {{HOST}}/api/posts
+PUT {{HOST}}/api/posts/13213
 ###
 DELETE {{HOST}}/api/posts

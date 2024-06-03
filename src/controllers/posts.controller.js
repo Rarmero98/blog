@@ -1,5 +1,7 @@
-const getAllPosts = (req, res) => {
-  res.send("Se leen todas las publicaciones");
+const getAllPosts = async (req, res) => {
+  const response = await db.query("SELECT * FROM posts");
+
+  res.json(response[0]);
 };
 
 const createPost = (req, res) => {
@@ -7,10 +9,14 @@ const createPost = (req, res) => {
 };
 
 const updatePost = (req, res) => {
+  const { post_id } = req.params;
+
   res.send("Se ha actualizado una publicación");
 };
 
 const deletePost = (req, res) => {
+  const { post_id } = req.params;
+
   res.send("Se ha borrado una publicación");
 };
 
