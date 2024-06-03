@@ -1,11 +1,47 @@
-const getAllPosts = async (req, res) => {
-  const response = await db.query("SELECT * FROM posts");
+const posts = require("../models/posts.model");
 
-  res.json(response[0]);
+const getAllPosts = async (req, res, next) => {
+  try {
+    const [response] = await posts.selectAll();
+    res.json(response);
+  } catch (err) {
+    next(err);
+  }
 };
 
-const createPost = (req, res) => {
-  res.send("Se ha creado una publicación");
+const getPostById = async (req, res, next) => {
+  try {
+    const [result] = await posts.selectById(req.params.post_id);
+
+    if (result.length === 0) {
+      return res.status(404).json({ fatal: "Publicación no encontrada" });
+    }
+    res.json(result[0]);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const getPostsByAuthor = async (req, res, next) => {
+  try {
+    const [response] = await posts.selectPostsByAuthor(req.params.autor_nombre);
+    if (response.length === 0) {
+      return res.status(404).json({ error: "Autor no encontrado" });
+    }
+    res.json(response[0]);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const createPost = async (req, res, next) => {
+  try {
+    const response = await posts.insert(req.body);
+
+    res.json({ message: "Publicación creada" });
+  } catch (err) {
+    next(err);
+  }
 };
 
 const updatePost = (req, res) => {
@@ -22,6 +58,8 @@ const deletePost = (req, res) => {
 
 module.exports = {
   getAllPosts,
+  getPostById,
+  getPostsByAuthor,
   createPost,
   updatePost,
   deletePost,

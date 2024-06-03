@@ -1,9 +1,30 @@
-const getAllAutores = (req, res) => {
-  res.send("Se leen todos los autores");
+const autores = require("../models/autores.model");
+
+const getAllAutores = async (req, res, next) => {
+  try {
+    const [response] = await autores.selectAll();
+    res.json(response);
+  } catch (err) {
+    next(err);
+  }
 };
 
-const createAutor = (req, res) => {
-  res.send("Se ha creado un autor");
+const getAutorById = async (req, res, next) => {
+  try {
+    const [result] = await autores.selectById(req.params.autor_id);
+
+    if (result.length === 0) {
+      return res.status(404).json({ fatal: "Autor no encontrado" });
+    }
+    res.json(result[0]);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const createAutor = async (req, res) => {
+  const [response] = await autores.insert(req.body);
+  res.json(response);
 };
 
 const updateAutor = (req, res) => {
@@ -20,6 +41,7 @@ const deleteAutor = (req, res) => {
 
 module.exports = {
   getAllAutores,
+  getAutorById,
   createAutor,
   updateAutor,
   deleteAutor,

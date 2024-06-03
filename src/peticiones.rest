@@ -6,6 +6,14 @@
 GET {{HOST}}/api/autores
 ###
 POST {{HOST}}/api/autores
+Content-Type: application/json
+
+{
+    "nombre": "Eustaquio Serrano López",
+    "email": "esl@gmail.com",
+    "imagen": "https://placehold.co/400x400"
+
+}
 ###
 PUT {{HOST}}/api/autores
 ###
@@ -13,6 +21,8 @@ DELETE {{HOST}}/api/autores
 
 ### Peticiones a las publicaciones
 GET {{HOST}}/api/posts
+### getPostsByAuthor
+GET {{HOST}}/api/posts/Roberto Arkansas Posta
 ###
 POST {{HOST}}/api/posts
 Content-Type: application/json
@@ -20,8 +30,9 @@ Content-Type: application/json
 {
     "titulo": "La verdad sobre el caso Savolta",
     "descripcion": "Artículo sobre el libro de Eduardo Mendoza",
-    "fecha_creacion": "2024-06/01",
-    "categoria": "Reseñas"
+    "fecha_creacion": "2024-06-01",
+    "categoria": "Reseñas",
+    "autores_id": "1"
 }
 ###
 PUT {{HOST}}/api/posts/13213
